@@ -27,9 +27,9 @@ const Home = () => {
   };
 
   return (
-    <div className="container mt-5 d-flex justify-content-center">
+    <div className="container d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
       <div className="card" style={{ width: '50%' }}>
-        <h2 className="card-header">Lista de Tareas</h2>
+        <h2 className="card-header text-center">Lista de Tareas</h2>
         <div className="card-body">
           <div className="input-group mb-3">
             <input
@@ -50,55 +50,50 @@ const Home = () => {
               </button>
             </div>
           </div>
-          <ul className="list-group">
-            {tareas.length === 0 && (
-              <span className="text-muted">Sin Tareas</span>
-            )}
-            {tareas.map((tarea, indice) => (
-              <li
-                key={indice}
-                className="list-group-item d-flex justify-content-between align-items-center"
-                onMouseEnter={(e) => {
-                  const botonEliminar = e.currentTarget.querySelector(
-                    'button'
-                  );
-                  botonEliminar.style.visibility = 'visible';
-                }}
-                onMouseLeave={(e) => {
-                  const botonEliminar = e.currentTarget.querySelector(
-                    'button'
-                  );
-                  botonEliminar.style.visibility = 'hidden';
-                }}
-              >
-                {tarea}
-                <button
-                  className="btn btn-link ml-2"
-                  style={{
-                    visibility: 'hidden',
-                    padding: '0',
-                    border: 'none',
-                    background: 'none',
-                    textDecoration: 'none',
-                    color: 'inherit',
+          {tareas.length === 0 ? (
+            <p className="text-center text-muted">Sin Tareas</p>
+          ) : (
+            <ul className="list-group mb-3">
+              {tareas.map((tarea, indice) => (
+                <li
+                  key={indice}
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                  onMouseEnter={(e) => {
+                    const botonEliminar = e.currentTarget.querySelector('button');
+                    botonEliminar.style.visibility = 'visible';
                   }}
-                  onClick={() => manejarEliminarTarea(indice)}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = 'gray')}
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = 'inherit')
-                  }
-                  onMouseDown={(e) =>
-                    (e.currentTarget.style.color = 'red')
-                  }
-                  onMouseUp={(e) => (e.currentTarget.style.color = 'gray')}
+                  onMouseLeave={(e) => {
+                    const botonEliminar = e.currentTarget.querySelector('button');
+                    botonEliminar.style.visibility = 'hidden';
+                  }}
                 >
-                  ✕
-                </button>
-              </li>
-            ))}
-          </ul>
+                  {tarea}
+                  <button
+                    className="btn btn-link ml-2"
+                    style={{
+                      visibility: 'hidden',
+                      padding: '0',
+                      border: 'none',
+                      background: 'none',
+                      textDecoration: 'none',
+                      color: 'inherit',
+                    }}
+                    onClick={() => manejarEliminarTarea(indice)}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = 'gray')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = 'inherit')}
+                    onMouseDown={(e) => (e.currentTarget.style.color = 'red')}
+                    onMouseUp={(e) => (e.currentTarget.style.color = 'gray')}
+                  >
+                    ✕
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
           {tareas.length > 0 && (
-            <p>{tareas.length} Tareas</p>
+            <p className="text-center">
+              {tareas.length} {tareas.length === 1 ? 'Tarea' : 'Tareas'}
+            </p>
           )}
         </div>
       </div>
